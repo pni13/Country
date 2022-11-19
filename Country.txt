@@ -1,0 +1,366 @@
+
+Setting environment for using XAMPP for Windows.
+abc@PRANITA c:\xampp
+# mysql -uroot
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 2
+Server version: 10.1.38-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use pranita
+Database changed
+MariaDB [pranita]> create table COUNTRY
+    -> (
+    -> ccd int,
+    -> cname varchar(30),
+    -> isocd varchar(20),
+    -> demonym varchar(30) not null,
+    -> capital varchar(30),
+    -> currency varchar(20) not null,
+    -> language varchar(20) not null,
+    -> tns int,
+    -> tnt int,
+    -> primary key(ccd),
+    -> unique key(cname),
+    -> unique key(isocd),
+    -> unique key(capital)
+    -> )
+    -> ;
+Query OK, 0 rows affected (0.36 sec)
+
+MariaDB [pranita]> desc country;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ccd      | int(11)     | NO   | PRI | NULL    |       |
+| cname    | varchar(30) | YES  | UNI | NULL    |       |
+| isocd    | varchar(20) | YES  | UNI | NULL    |       |
+| demonym  | varchar(30) | NO   |     | NULL    |       |
+| capital  | varchar(30) | YES  | UNI | NULL    |       |
+| currency | varchar(20) | NO   |     | NULL    |       |
+| language | varchar(20) | NO   |     | NULL    |       |
+| tns      | int(11)     | YES  |     | NULL    |       |
+| tnt      | int(11)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+MariaDB [pranita]> insert into country
+    -> values
+    -> (2,'canada','can','canadian','ottawa','dollar','french',10,3),
+    -> (91,'india','ind','indian','new delhi','rupee','hindi',29,7),
+    -> (81,'japan','jpn','japanese','tokyo','yen','japanese',44,4),
+    -> (60,'malaysia','mys','malaysian','kuala lumpur','ringgit','malaysian',13,3),
+    -> (44,'united kingdom','gbr','british','london','pound','english',4,14),
+    -> (1,'united states of america','usa','american','washington d.c.','dollar','english',50,5)
+    -> ;
+Query OK, 6 rows affected (0.10 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [pranita]> insert into country
+    -> (ccd,cname,isocd,demonym,capital,currency,language,tns)
+    -> values
+    -> (86,'china','chn','chinese','beijing','yaun','chinese',33),
+    -> (49,'germany','deu','german','berlin','euro','german',16),
+    -> (39,'italy','ita','italian','rome','euro','italian',20),
+    -> (82,'south korea','zaf','south korean','seoul','won','korean',9)
+    -> ;
+Query OK, 4 rows affected (0.10 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [pranita]> select * from country;
++-----+--------------------------+-------+--------------+-----------------+----------+-----------+------+------+
+| ccd | cname                    | isocd | demonym      | capital         | currency | language  | tns  | tnt  |
++-----+--------------------------+-------+--------------+-----------------+----------+-----------+------+------+
+|   1 | united states of america | usa   | american     | washington d.c. | dollar   | english   |   50 |    5 |
+|   2 | canada                   | can   | canadian     | ottawa          | dollar   | french    |   10 |    3 |
+|  39 | italy                    | ita   | italian      | rome            | euro     | italian   |   20 | NULL |
+|  44 | united kingdom           | gbr   | british      | london          | pound    | english   |    4 |   14 |
+|  49 | germany                  | deu   | german       | berlin          | euro     | german    |   16 | NULL |
+|  60 | malaysia                 | mys   | malaysian    | kuala lumpur    | ringgit  | malaysian |   13 |    3 |
+|  81 | japan                    | jpn   | japanese     | tokyo           | yen      | japanese  |   44 |    4 |
+|  82 | south korea              | zaf   | south korean | seoul           | won      | korean    |    9 | NULL |
+|  86 | china                    | chn   | chinese      | beijing         | yaun     | chinese   |   33 | NULL |
+|  91 | india                    | ind   | indian       | new delhi       | rupee    | hindi     |   29 |    7 |
++-----+--------------------------+-------+--------------+-----------------+----------+-----------+------+------+
+10 rows in set (0.00 sec)
+
+MariaDB [pranita]> create table STATE
+    -> (
+    -> scd int,
+    -> sname varchar(30),
+    -> isocd varchar(20),
+    -> ccd int,
+    -> demonym varchar(30) not null,
+    -> capital varchar(30),
+    -> language varchar(20) not null,
+    -> tnc int,
+    -> primary key(scd),
+    -> unique key(sname),
+    -> unique key(isocd),
+    -> unique key(capital)
+    -> )
+    -> ;
+Query OK, 0 rows affected (0.28 sec)
+
+MariaDB [pranita]> desc state;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| scd      | int(11)     | NO   | PRI | NULL    |       |
+| sname    | varchar(30) | YES  | UNI | NULL    |       |
+| isocd    | varchar(20) | YES  | UNI | NULL    |       |
+| ccd      | int(11)     | YES  |     | NULL    |       |
+| demonym  | varchar(30) | NO   |     | NULL    |       |
+| capital  | varchar(30) | YES  | UNI | NULL    |       |
+| language | varchar(20) | NO   |     | NULL    |       |
+| tnc      | int(11)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+MariaDB [pranita]> insert into state
+    -> values
+    -> (3,'scotland','sct',44,'scottish','edinburgh','english',7),
+    -> (5,'bremen','hb',49,'bremer','bremen','low german',2),
+    -> (7,'manitoba','mb',2,'manitoban','winnipeg','english',10),
+    -> (8,'perak','prk',60,'perakian','ipoh','malay',60),
+    -> (24,'georgia','ga',1,'georgian','atlanta','georgian',770),
+    -> (25,'zhejiang','zj',86,'hangzhouians','hangzhou','wu',90),
+    -> (27,'maharashtra','mh',91,'maharashtrian','mumbai','marathi',43),
+    -> (42,'gangwon','gw',82,'gangwonian','chuncheon','gangwon',7),
+    -> (47,'okinawa','oka',81,'okinawan','naha','okinawan',26),
+    -> (75,'taranto','ta',39,'tarantini','taranto','tarantino',29)
+    -> ;
+Query OK, 10 rows affected (0.21 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [pranita]> select * from state;
++-----+-------------+-------+------+---------------+-----------+------------+------+
+| scd | sname       | isocd | ccd  | demonym       | capital   | language   | tnc  |
++-----+-------------+-------+------+---------------+-----------+------------+------+
+|   3 | scotland    | sct   |   44 | scottish      | edinburgh | english    |    7 |
+|   5 | bremen      | hb    |   49 | bremer        | bremen    | low german |    2 |
+|   7 | manitoba    | mb    |    2 | manitoban     | winnipeg  | english    |   10 |
+|   8 | perak       | prk   |   60 | perakian      | ipoh      | malay      |   60 |
+|  24 | georgia     | ga    |    1 | georgian      | atlanta   | georgian   |  770 |
+|  25 | zhejiang    | zj    |   86 | hangzhouians  | hangzhou  | wu         |   90 |
+|  27 | maharashtra | mh    |   91 | maharashtrian | mumbai    | marathi    |   43 |
+|  42 | gangwon     | gw    |   82 | gangwonian    | chuncheon | gangwon    |    7 |
+|  47 | okinawa     | oka   |   81 | okinawan      | naha      | okinawan   |   26 |
+|  75 | taranto     | ta    |   39 | tarantini     | taranto   | tarantino  |   29 |
++-----+-------------+-------+------+---------------+-----------+------------+------+
+10 rows in set (0.00 sec)
+
+MariaDB [pranita]> alter table state
+    -> add foreign key(ccd)
+    -> references
+    -> country(ccd)
+    -> ;
+Query OK, 10 rows affected (2.74 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [pranita]> desc state;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| scd      | int(11)     | NO   | PRI | NULL    |       |
+| sname    | varchar(30) | YES  | UNI | NULL    |       |
+| isocd    | varchar(20) | YES  | UNI | NULL    |       |
+| ccd      | int(11)     | YES  | MUL | NULL    |       |
+| demonym  | varchar(30) | NO   |     | NULL    |       |
+| capital  | varchar(30) | YES  | UNI | NULL    |       |
+| language | varchar(20) | NO   |     | NULL    |       |
+| tnc      | int(11)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+MariaDB [pranita]> create table CITY
+    -> (
+    -> cno int auto_increment,
+    -> cname varchar(30),
+    -> demonym varchar(30) not null,
+    -> language varchar(20) not null,
+    -> scd int,
+    -> ccd int,
+    -> primary key(cno),
+    -> unique key(cname)
+    -> )
+    -> ;
+Query OK, 0 rows affected (0.22 sec)
+
+MariaDB [pranita]> desc city;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| cno      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| cname    | varchar(30) | YES  | UNI | NULL    |                |
+| demonym  | varchar(30) | NO   |     | NULL    |                |
+| language | varchar(20) | NO   |     | NULL    |                |
+| scd      | int(11)     | YES  |     | NULL    |                |
+| ccd      | int(11)     | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+6 rows in set (0.01 sec)
+
+MariaDB [pranita]> insert into city
+    -> values
+    -> (1,'nashik','nashikkar','marathi',27,91),
+    -> (2,'athens','athenian','georgian',24,1)
+    -> ;
+Query OK, 2 rows affected (0.09 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [pranita]> insert into city
+    -> (cname,language,scd,ccd)
+    -> values
+    -> ('yiwu','wu',25,86)
+    -> ;
+Query OK, 1 row affected, 1 warning (0.10 sec)
+
+MariaDB [pranita]> insert into city
+    -> (cname,demonym,language,scd,ccd)
+    -> values
+    -> ('ginowan','ginowan','okinawan',47,81),
+    -> ('stirling','stirlingers','english',3,44),
+    -> ('avetrana','avetranesi','tarantino',75,39),
+    -> ('pune','punekar','marathi',27,91),
+    -> ('winkler','winklerite','english',7,2),
+    -> ('kin','kin','okinawan',47,81),
+    -> ('macon','maconnais','georgian',24,1),
+    -> ('perth','perthling','english',3,44),
+    -> ('bremerhaven','bremerin','low german',5,49),
+    -> ('brandon','brandonite','english',7,2),
+    -> ('nanjo','nanjo','okinawan',47,81),
+    -> ('sava','savesi','tarantino',75,39),
+    -> ('glasgow','glaswegian','english',3,44)
+    -> ;
+Query OK, 13 rows affected (0.11 sec)
+Records: 13  Duplicates: 0  Warnings: 0
+
+MariaDB [pranita]> insert into city
+    -> (cname,language,scd,ccd)
+    -> values
+    -> ('pinghu','wu',25,86)
+    -> ;
+Query OK, 1 row affected, 1 warning (0.09 sec)
+
+MariaDB [pranita]> insert into city
+    -> (cname,demonym,language,scd,ccd)
+    -> values
+    -> ('dhule','dhulekar','marathi',27,91)
+    -> ;
+Query OK, 1 row affected (0.09 sec)
+
+MariaDB [pranita]> select * from city;
++-----+-------------+-------------+------------+------+------+
+| cno | cname       | demonym     | language   | scd  | ccd  |
++-----+-------------+-------------+------------+------+------+
+|   1 | nashik      | nashikkar   | marathi    |   27 |   91 |
+|   2 | athens      | athenian    | georgian   |   24 |    1 |
+|   3 | yiwu        |             | wu         |   25 |   86 |
+|   4 | ginowan     | ginowan     | okinawan   |   47 |   81 |
+|   5 | stirling    | stirlingers | english    |    3 |   44 |
+|   6 | avetrana    | avetranesi  | tarantino  |   75 |   39 |
+|   7 | pune        | punekar     | marathi    |   27 |   91 |
+|   8 | winkler     | winklerite  | english    |    7 |    2 |
+|   9 | kin         | kin         | okinawan   |   47 |   81 |
+|  10 | macon       | maconnais   | georgian   |   24 |    1 |
+|  11 | perth       | perthling   | english    |    3 |   44 |
+|  12 | bremerhaven | bremerin    | low german |    5 |   49 |
+|  13 | brandon     | brandonite  | english    |    7 |    2 |
+|  14 | nanjo       | nanjo       | okinawan   |   47 |   81 |
+|  15 | sava        | savesi      | tarantino  |   75 |   39 |
+|  16 | glasgow     | glaswegian  | english    |    3 |   44 |
+|  17 | pinghu      |             | wu         |   25 |   86 |
+|  18 | dhule       | dhulekar    | marathi    |   27 |   91 |
++-----+-------------+-------------+------------+------+------+
+18 rows in set (0.00 sec)
+
+MariaDB [pranita]> alter table city
+    -> add foreign key(scd)
+    -> references
+    -> state(scd)
+    -> ;
+Query OK, 18 rows affected (1.13 sec)
+Records: 18  Duplicates: 0  Warnings: 0
+
+MariaDB [pranita]> alter table city
+    -> add foreign key(ccd)
+    -> references
+    -> country(ccd)
+    -> ;
+Query OK, 18 rows affected (0.75 sec)
+Records: 18  Duplicates: 0  Warnings: 0
+
+MariaDB [pranita]> desc city;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| cno      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| cname    | varchar(30) | YES  | UNI | NULL    |                |
+| demonym  | varchar(30) | NO   |     | NULL    |                |
+| language | varchar(20) | NO   |     | NULL    |                |
+| scd      | int(11)     | YES  | MUL | NULL    |                |
+| ccd      | int(11)     | YES  | MUL | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+6 rows in set (0.01 sec)
+
+MariaDB [pranita]> select * from country;
++-----+--------------------------+-------+--------------+-----------------+----------+-----------+------+------+
+| ccd | cname                    | isocd | demonym      | capital         | currency | language  | tns  | tnt  |
++-----+--------------------------+-------+--------------+-----------------+----------+-----------+------+------+
+|   1 | united states of america | usa   | american     | washington d.c. | dollar   | english   |   50 |    5 |
+|   2 | canada                   | can   | canadian     | ottawa          | dollar   | french    |   10 |    3 |
+|  39 | italy                    | ita   | italian      | rome            | euro     | italian   |   20 | NULL |
+|  44 | united kingdom           | gbr   | british      | london          | pound    | english   |    4 |   14 |
+|  49 | germany                  | deu   | german       | berlin          | euro     | german    |   16 | NULL |
+|  60 | malaysia                 | mys   | malaysian    | kuala lumpur    | ringgit  | malaysian |   13 |    3 |
+|  81 | japan                    | jpn   | japanese     | tokyo           | yen      | japanese  |   44 |    4 |
+|  82 | south korea              | zaf   | south korean | seoul           | won      | korean    |    9 | NULL |
+|  86 | china                    | chn   | chinese      | beijing         | yaun     | chinese   |   33 | NULL |
+|  91 | india                    | ind   | indian       | new delhi       | rupee    | hindi     |   29 |    7 |
++-----+--------------------------+-------+--------------+-----------------+----------+-----------+------+------+
+10 rows in set (0.00 sec)
+
+MariaDB [pranita]> select * from state;
++-----+-------------+-------+------+---------------+-----------+------------+------+
+| scd | sname       | isocd | ccd  | demonym       | capital   | language   | tnc  |
++-----+-------------+-------+------+---------------+-----------+------------+------+
+|   3 | scotland    | sct   |   44 | scottish      | edinburgh | english    |    7 |
+|   5 | bremen      | hb    |   49 | bremer        | bremen    | low german |    2 |
+|   7 | manitoba    | mb    |    2 | manitoban     | winnipeg  | english    |   10 |
+|   8 | perak       | prk   |   60 | perakian      | ipoh      | malay      |   60 |
+|  24 | georgia     | ga    |    1 | georgian      | atlanta   | georgian   |  770 |
+|  25 | zhejiang    | zj    |   86 | hangzhouians  | hangzhou  | wu         |   90 |
+|  27 | maharashtra | mh    |   91 | maharashtrian | mumbai    | marathi    |   43 |
+|  42 | gangwon     | gw    |   82 | gangwonian    | chuncheon | gangwon    |    7 |
+|  47 | okinawa     | oka   |   81 | okinawan      | naha      | okinawan   |   26 |
+|  75 | taranto     | ta    |   39 | tarantini     | taranto   | tarantino  |   29 |
++-----+-------------+-------+------+---------------+-----------+------------+------+
+10 rows in set (0.00 sec)
+
+MariaDB [pranita]> select * from city;
++-----+-------------+-------------+------------+------+------+
+| cno | cname       | demonym     | language   | scd  | ccd  |
++-----+-------------+-------------+------------+------+------+
+|   1 | nashik      | nashikkar   | marathi    |   27 |   91 |
+|   2 | athens      | athenian    | georgian   |   24 |    1 |
+|   3 | yiwu        |             | wu         |   25 |   86 |
+|   4 | ginowan     | ginowan     | okinawan   |   47 |   81 |
+|   5 | stirling    | stirlingers | english    |    3 |   44 |
+|   6 | avetrana    | avetranesi  | tarantino  |   75 |   39 |
+|   7 | pune        | punekar     | marathi    |   27 |   91 |
+|   8 | winkler     | winklerite  | english    |    7 |    2 |
+|   9 | kin         | kin         | okinawan   |   47 |   81 |
+|  10 | macon       | maconnais   | georgian   |   24 |    1 |
+|  11 | perth       | perthling   | english    |    3 |   44 |
+|  12 | bremerhaven | bremerin    | low german |    5 |   49 |
+|  13 | brandon     | brandonite  | english    |    7 |    2 |
+|  14 | nanjo       | nanjo       | okinawan   |   47 |   81 |
+|  15 | sava        | savesi      | tarantino  |   75 |   39 |
+|  16 | glasgow     | glaswegian  | english    |    3 |   44 |
+|  17 | pinghu      |             | wu         |   25 |   86 |
+|  18 | dhule       | dhulekar    | marathi    |   27 |   91 |
++-----+-------------+-------------+------------+------+------+
+18 rows in set (0.00 sec)
